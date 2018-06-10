@@ -1,6 +1,7 @@
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
+import com.mongodb.yaoxing.demo.domain.Aggregate;
 import com.mongodb.yaoxing.demo.domain.ArrayUpdate;
 import com.mongodb.yaoxing.demo.domain.Generator;
 import org.bson.codecs.configuration.*;
@@ -30,5 +31,9 @@ public class Main {
         ArrayUpdate update = new ArrayUpdate(client);
         update.updateSingleElm();
         update.updateAllMatched();
+
+        // Run aggregation
+        Aggregate agg = new Aggregate(client);
+        agg.AggregateByFavouriteColor();
     }
 }
