@@ -14,10 +14,11 @@ public class Person implements Serializable {
 
     }
 
-    public Person(String name, String address, Date birthday) {
+    public Person(String name, String address, Date birthday, List<String> favouriteColor) {
         this.name = name;
         this.address = address;
         this.birthday = birthday;
+        this.favouriteColor = favouriteColor;
     }
 
     public String getName() {
