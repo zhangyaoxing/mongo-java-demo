@@ -2,6 +2,8 @@ package com.mongodb.yaoxing.demo.domain;
 import com.mongodb.client.*;
 import com.github.javafaker.Faker;
 import com.mongodb.yaoxing.demo.pojo.Person;
+import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Updates.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,15 @@ public class Generator extends MongoBase {
     public int ARRAY_LEN = 5;
     public Generator(MongoClient client) {
         super(client, "demo");
+    }
+
+    public void cleanup() {
+        MongoDatabase db = this.getDefaultDatabase();
+        MongoCollection<Person> coll = db.getCollection("Person", Person.class);
+        coll.drop();
+        System.out.println(String.format("====Collection %s dropped!", "Person"));
+        coll.createIndex(eq("favouriteColor", 1));
+        System.out.println(String.format("====Index created on field '%s'!", "favouriteColor"));
     }
 
     public void genData() {
@@ -39,5 +50,6 @@ public class Generator extends MongoBase {
         if (data.size() > 0) {
             coll.insertMany(data);
         }
+        System.out.println(String.format("====%d documents generated!", TOTAL_COUNT));
     }
 }
