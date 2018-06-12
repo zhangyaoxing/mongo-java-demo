@@ -11,17 +11,20 @@ public class Person implements Serializable {
     private String name;
     private String address;
     private Date birthday;
+    private int age;
+
     private List<String> favouriteColor;
 
     public Person() {
 
     }
 
-    public Person(String name, String address, Date birthday, List<String> favouriteColor) {
+    public Person(String name, String address, Date birthday, List<String> favouriteColor, int age) {
         this.name = name;
         this.address = address;
         this.birthday = birthday;
         this.favouriteColor = favouriteColor;
+        this.age = age;
     }
 
     public String getName() {
@@ -56,4 +59,11 @@ public class Person implements Serializable {
         this.favouriteColor = favouriteColor;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 }

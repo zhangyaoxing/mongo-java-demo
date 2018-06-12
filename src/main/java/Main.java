@@ -1,10 +1,7 @@
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
-import com.mongodb.yaoxing.demo.domain.Aggregate;
-import com.mongodb.yaoxing.demo.domain.Find;
-import com.mongodb.yaoxing.demo.domain.Update;
-import com.mongodb.yaoxing.demo.domain.Insert;
+import com.mongodb.yaoxing.demo.domain.*;
 import org.bson.codecs.configuration.*;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
@@ -33,17 +30,21 @@ public class Main {
         gen.cleanup();
         gen.insertData();
 
-        // 更新数组元素
-        Update update = new Update(client);
-        update.updateSingleElm();
-        update.updateAllMatched();
+//        // 更新数组元素
+//        Update update = new Update(client);
+//        update.updateSingleElm();
+//        update.updateAllMatched();
+//
+//        // 查询数组元素
+//        Find f = new Find(client);
+//        f.FindSingleArrayElm();
+//
+//        // 执行聚合
+//        Aggregate agg = new Aggregate(client);
+//        agg.AggregateByFavouriteColor();
 
-        // 查询数组元素
-        Find f = new Find(client);
-        f.FindSingleArrayElm();
-
-        // 执行聚合
-        Aggregate agg = new Aggregate(client);
-        agg.AggregateByFavouriteColor();
+        // 调用Spark Connector
+        Spark spark = new Spark();
+        spark.groupByBirthday();
     }
 }

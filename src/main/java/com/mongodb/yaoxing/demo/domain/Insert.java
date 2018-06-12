@@ -6,6 +6,7 @@ import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Updates.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,11 +25,13 @@ public class Insert extends MongoBase {
      */
     public void cleanup() {
         MongoDatabase db = this.getDefaultDatabase();
-        MongoCollection<Person> coll = db.getCollection("Person", Person.class);
 
         // 删除目标表
+        MongoCollection<Person> coll = db.getCollection("Person", Person.class);
         coll.drop();
-        System.out.println(String.format("====Collection %s dropped!", "Person"));
+        MongoCollection out = db.getCollection("out");
+        out.drop();
+        System.out.println(String.format("====Collection %s, %s dropped!", "Person", "out"));
 
         // 在目标表上创建索引（后续其他操作将会使用）
         coll.createIndex(eq("favouriteColor", 1));
@@ -51,11 +54,14 @@ public class Insert extends MongoBase {
             }
 
             // 生成POJO
+            Date bDay = faker.date().birthday();
+            int age = (int) ((new Date().getTime() - bDay.getTime()) / 3600 / 24 / 365 / 1000);
             Person person = new Person(
                     faker.name().fullName(),
                     faker.address().fullAddress(),
-                    faker.date().birthday(),
-                    colors);
+                    bDay,
+                    colors,
+                    age);
             data.add(person);
             // 使用批量方式插入以提高效率
             if (i % BATCH_SIZE == 0) {
