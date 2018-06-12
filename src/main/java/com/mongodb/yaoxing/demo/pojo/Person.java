@@ -55,4 +55,5 @@ public class Person implements Serializable {
     public void setFavouriteColor(List<String> favouriteColor) {
         this.favouriteColor = favouriteColor;
     }
+
 }

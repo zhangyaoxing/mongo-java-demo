@@ -2,6 +2,7 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
 import com.mongodb.yaoxing.demo.domain.Aggregate;
+import com.mongodb.yaoxing.demo.domain.Find;
 import com.mongodb.yaoxing.demo.domain.Update;
 import com.mongodb.yaoxing.demo.domain.Insert;
 import org.bson.codecs.configuration.*;
@@ -35,5 +36,9 @@ public class Main {
         // Run aggregation
         Aggregate agg = new Aggregate(client);
         agg.AggregateByFavouriteColor();
+
+        // Run array query
+        Find f = new Find(client);
+        f.FindSingleArrayElm();
     }
 }

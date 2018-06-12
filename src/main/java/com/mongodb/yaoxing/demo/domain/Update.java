@@ -13,7 +13,7 @@ import com.mongodb.yaoxing.demo.pojo.Person;
  */
 public class Update extends MongoBase {
     public Update(MongoClient client) {
-        super(client, "demo");
+        super(client);
     }
 
     /**

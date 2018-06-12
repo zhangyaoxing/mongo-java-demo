@@ -18,6 +18,10 @@ public abstract class MongoBase {
         this.client = client;
         this.defaultDbName = defaultDbName;
     }
+    public MongoBase(MongoClient client) {
+        this(client, "demo");
+    }
+
 
     /**
      * 获取默认数据库（由派生类在初始化时传入）

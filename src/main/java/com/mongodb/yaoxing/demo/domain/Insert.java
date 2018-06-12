@@ -16,7 +16,7 @@ public class Insert extends MongoBase {
     public int TOTAL_COUNT = 10000;
     public int ARRAY_LEN = 5;
     public Insert(MongoClient client) {
-        super(client, "demo");
+        super(client);
     }
 
     /**

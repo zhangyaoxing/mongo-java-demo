@@ -17,7 +17,7 @@ import java.util.Arrays;
  */
 public class Aggregate extends MongoBase {
     public Aggregate(MongoClient client) {
-        super(client, "demo");
+        super(client);
     }
 
     /**
