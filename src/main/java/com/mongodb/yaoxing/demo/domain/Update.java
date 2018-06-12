@@ -8,16 +8,22 @@ import static com.mongodb.client.model.Updates.*;
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.yaoxing.demo.pojo.Person;
 
-public class ArrayUpdate extends MongoBase {
-    public ArrayUpdate(MongoClient client) {
+/**
+ * 此类用于演示更新类功能。
+ */
+public class Update extends MongoBase {
+    public Update(MongoClient client) {
         super(client, "demo");
     }
 
+    /**
+     * 更新单个数组元素
+     */
     public void updateSingleElm() {
         Faker faker = new Faker();
         String color = faker.color().name();
         String toColor;
-        // maker sure toColor is different from color
+        // 保证每次随机生成的颜色是不一样的
         while((toColor = faker.color().name()) == color);
         System.out.println(String.format("====Updating first matched faviouriteColor from \"%s\" to \"%s\".",
                 color, toColor));
@@ -25,7 +31,7 @@ public class ArrayUpdate extends MongoBase {
         MongoCollection<Person> coll = db.getCollection("Person", Person.class);
 
         /*
-        Update first matched `color` to `toColor`. Equalent console script:
+        更新数组中第一个匹配的`color`为`toColor`. 等价脚本:
         db.Person.update({favouriteColor: color}, {$set: {'favouriteColor.$': toColor}});
         */
         UpdateResult result = coll.updateMany(eq("favouriteColor", color),
@@ -34,11 +40,14 @@ public class ArrayUpdate extends MongoBase {
                 result.getMatchedCount(), result.getModifiedCount()));
     }
 
+    /**
+     * 更新全部匹配的数组元素
+     */
     public void updateAllMatched() {
         Faker faker = new Faker();
         String color = faker.color().name();
         String toColor;
-        // maker sure toColor is different from color
+        // 保证每次随机生成的颜色是不一样的
         while((toColor = faker.color().name()) == color);
         System.out.println(String.format("====Updating all matched faviouriteColor from \"%s\" to \"%s\".",
                 color, toColor));
@@ -46,7 +55,7 @@ public class ArrayUpdate extends MongoBase {
         MongoCollection<Person> coll = db.getCollection("Person", Person.class);
 
         /*
-        Update all matched `color` to `toColor`. Equalent console script:
+        更新所有匹配的`color`为`toColor`. 等价脚本:
         db.Person.update({favouriteColor: color}, {$set: {'favouriteColor[]': toColor}});
         */
         UpdateResult result = coll.updateMany(eq("favouriteColor", color),

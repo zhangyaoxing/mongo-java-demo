@@ -2,8 +2,8 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
 import com.mongodb.yaoxing.demo.domain.Aggregate;
-import com.mongodb.yaoxing.demo.domain.ArrayUpdate;
-import com.mongodb.yaoxing.demo.domain.Generator;
+import com.mongodb.yaoxing.demo.domain.Update;
+import com.mongodb.yaoxing.demo.domain.Insert;
 import org.bson.codecs.configuration.*;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
@@ -23,12 +23,12 @@ public class Main {
         MongoClient client = MongoClients.create(settings);
 
         // Cleanup and generate sample data x10000
-        Generator gen = new Generator(client);
+        Insert gen = new Insert(client);
         gen.cleanup();
-        gen.genData();
+        gen.insertData();
 
         // Update array element
-        ArrayUpdate update = new ArrayUpdate(client);
+        Update update = new Update(client);
         update.updateSingleElm();
         update.updateAllMatched();
 

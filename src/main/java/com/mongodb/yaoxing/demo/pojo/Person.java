@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * POJO对象Person
+ */
 public class Person implements Serializable {
     private String name;
     private String address;

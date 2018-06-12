@@ -1,29 +1,29 @@
 package com.mongodb.yaoxing.demo.domain;
 
-import com.github.javafaker.Faker;
 import com.mongodb.Block;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Accumulators;
-import com.mongodb.yaoxing.demo.pojo.Person;
 
 import org.bson.Document;
 
 import java.util.Arrays;
 
-import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Updates.set;
 
+/**
+ * 聚合功能演示
+ */
 public class Aggregate extends MongoBase {
     public Aggregate(MongoClient client) {
         super(client, "demo");
     }
 
+    /**
+     * 按favourteColor聚合
+     */
     public void AggregateByFavouriteColor() {
-        Faker faker = new Faker();
-        String color = faker.color().name();
         MongoDatabase db = this.getDefaultDatabase();
         MongoCollection<Document> coll = db.getCollection("Person", Document.class);
 
@@ -33,14 +33,16 @@ public class Aggregate extends MongoBase {
             }
         };
         /*
-        Aggregate by color. Equalent console script:
+        按favouriteColor聚合. 等价脚本:
         db.Person.aggregate([
             {$unwind: "$favouriteColor"},
             {$group: {_id: "$favouriteColor", count: {$sum: 1}}
         ]);
         */
         coll.aggregate(Arrays.asList(
+                // 按$favouriteColor展开数组
                 Aggregates.unwind("$favouriteColor"),
+                // _id为group使用的键，count为聚合函数结果字段，sum表示每次+1
                 Aggregates.group("$favouriteColor", Accumulators.sum("count", 1))
         )).forEach(printBlock);
     }
