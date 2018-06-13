@@ -30,18 +30,18 @@ public class Main {
         gen.cleanup();
         gen.insertData();
 
-//        // 更新数组元素
-//        Update update = new Update(client);
-//        update.updateSingleElm();
-//        update.updateAllMatched();
-//
-//        // 查询数组元素
-//        Find f = new Find(client);
-//        f.FindSingleArrayElm();
-//
-//        // 执行聚合
-//        Aggregate agg = new Aggregate(client);
-//        agg.AggregateByFavouriteColor();
+        // 更新数组元素
+        Update update = new Update(client);
+        update.updateSingleElm();
+        update.updateAllMatched();
+
+        // 查询数组元素
+        Find f = new Find(client);
+        f.FindSingleArrayElm();
+
+        // 执行聚合
+        Aggregate agg = new Aggregate(client);
+        agg.AggregateByFavouriteColor();
 
         // 调用Spark Connector
         Spark spark = new Spark();

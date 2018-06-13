@@ -19,10 +19,16 @@ import java.util.Map;
 
 import static com.mongodb.client.model.Filters.*;
 
+/**
+ * Spark示例
+ */
 public class Spark {
     public Spark() {
     }
 
+    /**
+     * 按照生日分组统计
+     */
     public void groupByBirthday() {
         // 随机生成要查询的颜色
         Faker faker = new Faker();
@@ -35,13 +41,14 @@ public class Spark {
                 .config("spark.mongodb.output.uri", "mongodb://127.0.0.1/demo.Output")
                 .getOrCreate();
         JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
-        JavaMongoRDD<Document> rdd = MongoSpark.load(jsc);
-        JavaMongoRDD<Document> aggedRdd = rdd.withPipeline(Arrays.asList(
-                Aggregates.match(eq("favouriteColor", color))));
-        Dataset<Row> implicitDS = aggedRdd.toDF();
+        JavaMongoRDD<Document> mgoRdd = MongoSpark.load(jsc)
+                .withPipeline(Arrays.asList(Aggregates.match(eq("favouriteColor", color))));
+        Dataset<Row> implicitDS = mgoRdd.toDF();
         implicitDS.createOrReplaceTempView("Person");
         Dataset<Row> byAge = spark.sql("SELECT age, COUNT(1) AS qty FROM Person GROUP BY age");
 
+        // 重新配置输出集合到out
+        // 这里也可以重新配置其他参数，比如writeConcern
         Map<String, String> writeOverrides = new HashMap<String, String>();
         writeOverrides.put("collection", "out");
         WriteConfig writeConfig = WriteConfig.create(jsc).withOptions(writeOverrides);
