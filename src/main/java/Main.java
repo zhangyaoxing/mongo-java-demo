@@ -28,23 +28,24 @@ public class Main {
         // 清理测试集合并生成测试数据10000条
         Insert gen = new Insert(client);
         gen.cleanup();
-        gen.insertData();
+//        gen.insertData();
+        gen.insertDataDocument();
 
-        // 更新数组元素
-        Update update = new Update(client);
-        update.updateSingleElm();
-        update.updateAllMatched();
-
-        // 查询数组元素
-        Find f = new Find(client);
-        f.FindSingleArrayElm();
-
-        // 执行聚合
-        Aggregate agg = new Aggregate(client);
-        agg.AggregateByFavouriteColor();
-
-        // 调用Spark Connector
-        Spark spark = new Spark();
-        spark.groupByBirthday();
+//        // 更新数组元素
+//        Update update = new Update(client);
+//        update.updateSingleElm();
+//        update.updateAllMatched();
+//
+//        // 查询数组元素
+//        Find f = new Find(client);
+//        f.FindSingleArrayElm();
+//
+//        // 执行聚合
+//        Aggregate agg = new Aggregate(client);
+//        agg.AggregateByFavouriteColor();
+//
+//        // 调用Spark Connector
+//        Spark spark = new Spark();
+//        spark.groupByBirthday();
     }
 }

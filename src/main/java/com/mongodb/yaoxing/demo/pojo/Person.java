@@ -1,6 +1,7 @@
 package com.mongodb.yaoxing.demo.pojo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -12,19 +13,21 @@ public class Person implements Serializable {
     private String address;
     private Date birthday;
     private int age;
-
+    private BigDecimal balance;
     private List<String> favouriteColor;
 
     public Person() {
 
     }
 
-    public Person(String name, String address, Date birthday, List<String> favouriteColor, int age) {
+    public Person(String name, String address, Date birthday, List<String> favouriteColor,
+                  int age, BigDecimal balance) {
         this.name = name;
         this.address = address;
         this.birthday = birthday;
         this.favouriteColor = favouriteColor;
         this.age = age;
+        this.balance = balance;
     }
 
     public String getName() {
@@ -65,5 +68,13 @@ public class Person implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 }
