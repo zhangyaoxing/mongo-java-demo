@@ -43,6 +43,9 @@ public class Find extends MongoBase {
         }
     }
 
+    /**
+     * 如何使用一个数组及数组中的子文档
+     */
     public void findArray() {
         MongoDatabase db = this.getDefaultDatabase();
         MongoCollection<Document> coll = db.getCollection("Person", Document.class);
@@ -51,11 +54,13 @@ public class Find extends MongoBase {
 
         while(people.hasNext()) {
             Document doc = people.next();
+            // 数组在Document中的类型实际是ArrayList
             List<String> colors = (List<String>) doc.get("favouriteColor");
             List<Document> phones = (List<Document>) doc.get("phones");
             System.out.println(String.format("====Favourite colors: %s", colors));
             for(int i = 0; i < phones.size(); i++) {
                 Document phone = phones.get(i);
+                // 通过getString可以将Document中的value以String形式取出
                 String type = phone.getString("type");
                 String number = phone.getString("number");
                 System.out.println(String.format("====Phone numbers: %s %s", type, number));
