@@ -31,15 +31,16 @@ public class Main {
         gen.insertData();
 //        gen.insertDataDocument();
 
-//        // 更新数组元素
-//        Update update = new Update(client);
+        // 更新数组元素
+        Update update = new Update(client);
 //        update.updateSingleElm();
 //        update.updateAllMatched();
+        update.bulkUpdate();
 //
 //        // 查询数组元素
-        Find f = new Find(client);
-        f.findSingleArrayElm();
-        f.findArray();
+//        Find f = new Find(client);
+//        f.findSingleArrayElm();
+//        f.findArray();
 //
 //        // 执行聚合
 //        Aggregate agg = new Aggregate(client);
