@@ -2,6 +2,7 @@ package com.mongodb.yaoxing.demo.domain;
 import com.mongodb.client.*;
 import com.github.javafaker.Faker;
 import com.mongodb.yaoxing.demo.pojo.Person;
+import com.mongodb.yaoxing.demo.pojo.Phone;
 import org.bson.Document;
 
 import static com.mongodb.client.model.Filters.*;
@@ -20,6 +21,7 @@ public class Insert extends MongoBase {
     public int BATCH_SIZE = 100;
     public int TOTAL_COUNT = 10000;
     public int ARRAY_LEN = 5;
+    public String[] PHONE_TYPE = new String[] {"home", "work", "cell"};
     public Insert(MongoClient client) {
         super(client);
     }
@@ -60,13 +62,21 @@ public class Insert extends MongoBase {
             // 生成POJO
             Date bDay = faker.date().birthday();
             int age = (int) ((new Date().getTime() - bDay.getTime()) / 3600 / 24 / 365 / 1000);
+
+            List<Phone> phones = new ArrayList<Phone>();
+            for (int j = 0; j < PHONE_TYPE.length; j++) {
+                Phone phone = new Phone(PHONE_TYPE[j], faker.phoneNumber().phoneNumber());
+                phones.add(phone);
+            }
+
             Person person = new Person(
                     faker.name().fullName(),
                     faker.address().fullAddress(),
                     bDay,
                     colors,
                     age,
-                    new BigDecimal(faker.number().numberBetween(10, 100)));
+                    new BigDecimal(faker.number().numberBetween(10, 100)),
+                    phones);
             data.add(person);
             // 使用批量方式插入以提高效率
             if (i % BATCH_SIZE == 0) {
@@ -97,6 +107,13 @@ public class Insert extends MongoBase {
 
             Date bDay = faker.date().birthday();
             int age = (int) ((new Date().getTime() - bDay.getTime()) / 3600 / 24 / 365 / 1000);
+
+            List<Document> phones = new ArrayList<Document>();
+            for (int j = 0; j < PHONE_TYPE.length; j++) {
+                Document phone = new Document("type", PHONE_TYPE[j]);
+                phone.append("number", faker.phoneNumber().phoneNumber());
+                phones.add(phone);
+            }
             Document person = new Document();
             person.put("name", faker.name().fullName());
             person.put("address", faker.address().fullAddress());
@@ -104,6 +121,7 @@ public class Insert extends MongoBase {
             person.put("favouriteColor", colors);
             person.put("age", age);
             person.put("amount", new BigDecimal(faker.number().numberBetween(10, 100)));
+            person.put("phones", phones);
             data.add(person);
             // 使用批量方式插入以提高效率
             if (i % BATCH_SIZE == 0) {

@@ -28,8 +28,8 @@ public class Main {
         // 清理测试集合并生成测试数据10000条
         Insert gen = new Insert(client);
         gen.cleanup();
-//        gen.insertData();
-        gen.insertDataDocument();
+        gen.insertData();
+//        gen.insertDataDocument();
 
 //        // 更新数组元素
 //        Update update = new Update(client);
@@ -37,8 +37,9 @@ public class Main {
 //        update.updateAllMatched();
 //
 //        // 查询数组元素
-//        Find f = new Find(client);
-//        f.FindSingleArrayElm();
+        Find f = new Find(client);
+        f.findSingleArrayElm();
+        f.findArray();
 //
 //        // 执行聚合
 //        Aggregate agg = new Aggregate(client);
@@ -47,5 +48,6 @@ public class Main {
 //        // 调用Spark Connector
 //        Spark spark = new Spark();
 //        spark.groupByBirthday();
+
     }
 }

@@ -15,19 +15,21 @@ public class Person implements Serializable {
     private int age;
     private BigDecimal balance;
     private List<String> favouriteColor;
+    private List<Phone> phones;
 
     public Person() {
 
     }
 
     public Person(String name, String address, Date birthday, List<String> favouriteColor,
-                  int age, BigDecimal balance) {
+                  int age, BigDecimal balance, List<Phone> phones) {
         this.name = name;
         this.address = address;
         this.birthday = birthday;
         this.favouriteColor = favouriteColor;
         this.age = age;
         this.balance = balance;
+        this.phones = phones;
     }
 
     public String getName() {
@@ -76,5 +78,13 @@ public class Person implements Serializable {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
     }
 }
