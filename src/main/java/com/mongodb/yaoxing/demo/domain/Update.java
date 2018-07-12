@@ -12,6 +12,7 @@ import com.mongodb.yaoxing.demo.pojo.Person;
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,6 +47,16 @@ public class Update extends MongoBase {
                 result.getMatchedCount(), result.getModifiedCount()));
     }
 
+    public void replaceOne() {
+        MongoDatabase db = this.getDefaultDatabase();
+        MongoCollection<Document> coll = db.getCollection("Person", Document.class);
+        Document doc = coll.find().limit(1).first();
+        doc.put("newField", "new value");
+        coll.replaceOne(eq("_id", doc.get("_id")), doc);
+        System.out.println("====Document replaced.");
+        System.out.println(doc.toJson());
+    }
+
     /**
      * 更新全部匹配的数组元素
      */
@@ -68,6 +79,18 @@ public class Update extends MongoBase {
                 set("favouriteColor[]", toColor));
         System.out.println(String.format("====%d documents matched, %d documents updated.",
                 result.getMatchedCount(), result.getModifiedCount()));
+
+        UpdateOptions options = new UpdateOptions();
+        options.arrayFilters(Arrays.asList(new Document[] {new Document("elm.classifyId", "1"),}));
+        options.upsert(true);
+        Document inc = new Document("dailyClassification.20180605.$[elm].sum", -1)
+                .append("monthlyClassification.201806.$[elm].sum", -1)
+                .append("annualClassification.$[elm].sum", -1);
+        coll.updateOne(and(eq("cusmNo", "00001"),
+                eq("tranCat", "1"),
+                eq("year", "2018")),
+                inc,
+                options);
     }
 
     /**
