@@ -41,11 +41,11 @@ public class Main {
 //        gen.insertDataDocument();
 //
 //        // 更新数组元素
-        Update update = new Update(client);
+//        Update update = new Update(client);
 //        update.updateSingleElm();
 //        update.updateAllMatched();
 //        update.bulkUpdate();
-        update.replaceOne();
+//        update.replaceOne();
 //
 //        // 查询数组元素
 //        Find f = new Find(client);
@@ -56,9 +56,9 @@ public class Main {
 //        Aggregate agg = new Aggregate(client);
 //        agg.AggregateByFavouriteColor();
 //
-//        // 调用Spark Connector
-//        Spark spark = new Spark();
-//        spark.groupByBirthday();
+        // 调用Spark Connector
+        Spark spark = new Spark();
+        spark.groupByBirthday();
 //        JsonWriterSettings settings = JsonWriterSettings.builder()
 //                .int32Converter(new Converter<Integer>() {
 //                    public void convert(Integer value, StrictJsonWriter writer) {
@@ -66,7 +66,7 @@ public class Main {
 //                    }
 //                })
 //                .build();
-//
+
 //        int v = 10;
         Document d = Document.parse("{a: 100}");
     }

@@ -72,7 +72,7 @@ public class Insert extends MongoBase {
             Person person = new Person(
                     faker.name().fullName(),
                     faker.address().fullAddress(),
-                    bDay,
+                    new java.sql.Date(bDay.getTime()),
                     colors,
                     age,
                     new BigDecimal(faker.number().numberBetween(10, 100)),

@@ -6,6 +6,7 @@ import com.mongodb.client.model.Aggregates;
 import com.mongodb.spark.MongoConnector;
 import com.mongodb.spark.config.ReadConfig;
 import com.mongodb.spark.config.WriteConfig;
+import com.mongodb.yaoxing.demo.pojo.Person;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.ForeachFunction;
@@ -51,34 +52,31 @@ public class Spark {
         JavaMongoRDD<Document> mgoRdd = MongoSpark.load(jsc)
                 .withPipeline(Arrays.asList(Aggregates.match(eq("favouriteColor", color))));
 
-        Dataset<Row> implicitDS = mgoRdd.toDF();
-        implicitDS.createOrReplaceTempView("Person");
-        Dataset<Row> byAge = spark.sql("SELECT age, COUNT(1) AS qty FROM Person GROUP BY age");
+        Dataset<Person> personDS = mgoRdd.toDS(Person.class);
+//        implicitDS.createOrReplaceTempView("Person");
+//        Dataset<Row> byAge = spark.sql("SELECT age, COUNT(1) AS qty FROM Person GROUP BY age");
 
-        // 重新配置输出集合到out
+        // 重新配置输出集合到"out"
         // 这里也可以重新配置其他参数，比如writeConcern
         Map<String, String> writeOverrides = new HashMap<String, String>();
         writeOverrides.put("collection", "out");
         final WriteConfig writeConfig = WriteConfig.create(jsc).withOptions(writeOverrides);
         final ReadConfig readConfig = ReadConfig.create(jsc).withOptions(writeOverrides);
-        byAge.foreachPartition(new ForeachPartitionFunction<Row>() {
-            public void call(Iterator<Row> iterator) throws Exception {
-            MongoConnector mc = MongoConnector.create(writeConfig.asJavaOptions());
-            mc.withCollectionDo(readConfig, Document.class, new Function<MongoCollection<Document>, Object>() {
-                public Object call(MongoCollection<Document> collection) throws Exception {
-                    // 使用Collection进行需要的操作
-                    return null;
-                }
-            });
+        personDS.foreachPartition(new ForeachPartitionFunction<Person>() {
+            public void call(final Iterator<Person> iterator) throws Exception {
+                MongoConnector mc = MongoConnector.create(writeConfig.asJavaOptions());
+                mc.withCollectionDo(readConfig, Person.class, new Function<MongoCollection<Person>, Object>() {
+                    public Object call(MongoCollection<Person> collection) throws Exception {
+                        // 根据条件{key: value}查找记录，并更新为
+                        while (iterator.hasNext()) {
+                            Person p = iterator.next();
+                            collection.replaceOne(eq("key", "value"), p);
+                        }
+                        return null;
+                    }
+                });
             }
         });
-//        Iterator<Row> it = byAge.toLocalIterator();
-//        while(it.hasNext()) {
-//            Row row = it.next();
-//            List<String> fieldNames = Arrays.asList(row.schema().fieldNames());
-//            scala.collection.immutable.List<String> columnNames = JavaConversions.asScalaBuffer(fieldNames).toList();
-//
-//        }
 
 //        MongoSpark.save(byAge, writeConfig);
     }
