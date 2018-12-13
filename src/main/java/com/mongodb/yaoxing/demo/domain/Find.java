@@ -1,10 +1,15 @@
 package com.mongodb.yaoxing.demo.domain;
 
 import com.github.javafaker.Faker;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Projections;
 import com.mongodb.yaoxing.demo.pojo.Person;
 import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +70,18 @@ public class Find extends MongoBase {
                 String number = phone.getString("number");
                 System.out.println(String.format("====Phone numbers: %s %s", type, number));
             }
+        }
+    }
+    public static void main(String[] args) {
+        System.out.println("====This is a MongoDB demo!====");
+
+        // MongoDB连接字符串
+        ConnectionString connStr = new ConnectionString("mongodb://127.0.0.1:29018/demo?slaveOk=true");
+        MongoClient client = MongoClients.create(connStr);
+
+        Find find = new Find(client);
+        for (int i = 0; i < 10000; i++) {
+            find.findSingleArrayElm();
         }
     }
 }

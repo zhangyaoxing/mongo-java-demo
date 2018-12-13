@@ -1,9 +1,14 @@
 package com.mongodb.yaoxing.demo.domain;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
 import com.github.javafaker.Faker;
 import com.mongodb.yaoxing.demo.pojo.Person;
 import com.mongodb.yaoxing.demo.pojo.Phone;
 import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
 
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Updates.*;
@@ -133,5 +138,28 @@ public class Insert extends MongoBase {
             coll.insertMany(data);
         }
         System.out.println(String.format("====%d documents generated!", TOTAL_COUNT));
+    }
+
+    public static void main(String[] args) {
+        System.out.println("====This is a MongoDB demo for inserting!====");
+
+        // MongoDB连接字符串
+        ConnectionString connStr = new ConnectionString("mongodb://127.0.0.1:29017/");
+        // 用于转换POJO与BSON的转换器。如果不使用POJO则不需要调用
+        CodecRegistry pojoCodecRegistry = CodecRegistries.fromRegistries(
+                com.mongodb.MongoClient.getDefaultCodecRegistry(),
+                CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+
+        // 使用连接字符串，POJO转换器生成一个MongoDB配置
+        MongoClientSettings settings = MongoClientSettings.builder()
+                .codecRegistry(pojoCodecRegistry)
+                .applyConnectionString(connStr)
+                .build();
+
+        MongoClient client = MongoClients.create(settings);
+
+
+        Insert insert = new Insert(client);
+        insert.insertDataDocument();
     }
 }
