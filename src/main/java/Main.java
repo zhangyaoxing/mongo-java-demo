@@ -53,7 +53,7 @@ public class Main {
 //        f.findArray();
 //
 //        // 执行聚合
-//        Aggregate agg = new Aggregate(client);
+//        GroupByDemo agg = new GroupByDemo(client);
 //        agg.AggregateByFavouriteColor();
 //
         // 调用Spark Connector

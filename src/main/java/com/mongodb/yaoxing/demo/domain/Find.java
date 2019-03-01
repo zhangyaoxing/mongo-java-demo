@@ -2,20 +2,14 @@ package com.mongodb.yaoxing.demo.domain;
 
 import com.github.javafaker.Faker;
 import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Projections;
-import com.mongodb.yaoxing.demo.pojo.Person;
+import com.mongodb.yaoxing.demo.MongoBase;
 import org.bson.Document;
-import org.bson.codecs.configuration.CodecRegistries;
-import org.bson.codecs.configuration.CodecRegistry;
-import org.bson.codecs.pojo.PojoCodecProvider;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.*;
-import static com.mongodb.client.model.Updates.*;
 
 /**
  * 此类用于演示查询相关操作。

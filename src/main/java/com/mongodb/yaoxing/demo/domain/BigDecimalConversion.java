@@ -5,6 +5,7 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.yaoxing.demo.MongoBase;
 import com.mongodb.yaoxing.demo.pojo.Product;
 import org.bson.*;
 import org.bson.codecs.*;

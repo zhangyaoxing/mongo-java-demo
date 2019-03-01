@@ -1,4 +1,4 @@
-package com.mongodb.yaoxing.demo.domain;
+package com.mongodb.yaoxing.demo.aggregation;
 
 import com.mongodb.Block;
 import com.mongodb.client.MongoClient;
@@ -7,6 +7,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Accumulators;
 
+import com.mongodb.yaoxing.demo.MongoBase;
 import org.bson.Document;
 
 import java.util.Arrays;
@@ -15,15 +16,15 @@ import java.util.Arrays;
 /**
  * 聚合功能演示
  */
-public class Aggregate extends MongoBase {
-    public Aggregate(MongoClient client) {
+public class GroupByDemo extends MongoBase {
+    public GroupByDemo(MongoClient client) {
         super(client);
     }
 
     /**
      * 按favourteColor聚合
      */
-    public void AggregateByFavouriteColor() {
+    public void aggregateByFavouriteColor() {
         MongoDatabase db = this.getDefaultDatabase();
         MongoCollection<Document> coll = db.getCollection("Person", Document.class);
 
@@ -45,5 +46,9 @@ public class Aggregate extends MongoBase {
                 // _id为group使用的键，count为聚合函数结果字段，sum表示每次+1
                 Aggregates.group("$favouriteColor", Accumulators.sum("count", 1))
         )).forEach(printBlock);
+    }
+
+    public static void main(String[] args) {
+
     }
 }

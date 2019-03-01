@@ -12,9 +12,7 @@ mvn package
 ```
 
 ### 执行
-```
-java -jar target/mongo-demo-1.0-SNAPSHOT-jar-with-dependencies.jar
-```
+每个类都具有`Main`方法，执行这个方法即可执行当前演示内容。
 
 ### 演示主题
 1. 清理集合并构造10000条文档到Person集合：`Insert.java`

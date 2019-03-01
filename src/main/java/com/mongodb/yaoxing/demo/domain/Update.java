@@ -1,13 +1,12 @@
 package com.mongodb.yaoxing.demo.domain;
 import com.github.javafaker.Faker;
-import com.google.common.collect.Lists;
-import com.mongodb.BulkWriteOperation;
 import com.mongodb.client.*;
 import com.mongodb.client.model.*;
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Updates.*;
 
 import com.mongodb.client.result.UpdateResult;
+import com.mongodb.yaoxing.demo.MongoBase;
 import com.mongodb.yaoxing.demo.pojo.Person;
 import org.bson.Document;
 

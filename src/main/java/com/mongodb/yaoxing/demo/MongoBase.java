@@ -1,4 +1,4 @@
-package com.mongodb.yaoxing.demo.domain;
+package com.mongodb.yaoxing.demo;
 
 import com.mongodb.client.*;
 

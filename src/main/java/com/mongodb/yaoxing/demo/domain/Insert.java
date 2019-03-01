@@ -3,6 +3,7 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
 import com.github.javafaker.Faker;
+import com.mongodb.yaoxing.demo.MongoBase;
 import com.mongodb.yaoxing.demo.pojo.Person;
 import com.mongodb.yaoxing.demo.pojo.Phone;
 import org.bson.Document;
@@ -11,13 +12,11 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
 import static com.mongodb.client.model.Filters.*;
-import static com.mongodb.client.model.Updates.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 此类用于演示如何插入数据。
