@@ -8,6 +8,7 @@ import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Accumulators;
 
 import com.mongodb.yaoxing.demo.MongoBase;
+import com.mongodb.yaoxing.demo.Utils;
 import org.bson.Document;
 
 import java.util.Arrays;
@@ -49,6 +50,8 @@ public class GroupByDemo extends MongoBase {
     }
 
     public static void main(String[] args) {
-
+        MongoClient client = Utils.getMongoClient();
+        GroupByDemo demo = new GroupByDemo(client);
+        demo.aggregateByFavouriteColor();
     }
 }

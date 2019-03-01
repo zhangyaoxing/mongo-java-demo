@@ -1,10 +1,9 @@
 package com.mongodb.yaoxing.demo.aggregation;
 
-import com.mongodb.ConnectionString;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.yaoxing.demo.MongoBase;
+import com.mongodb.yaoxing.demo.Utils;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -65,12 +64,7 @@ public class RunCommandDemo extends MongoBase {
     }
 
     public static void main(String[] args) {
-        System.out.println("====This is a MongoDB demo!====");
-
-        // MongoDB连接字符串
-        ConnectionString connStr = new ConnectionString("mongodb://127.0.0.1/demo?slaveOk=true");
-        MongoClient client = MongoClients.create(connStr);
-
+        MongoClient client = Utils.getMongoClient();
         RunCommandDemo agg = new RunCommandDemo(client);
         agg.runCommand();
     }
