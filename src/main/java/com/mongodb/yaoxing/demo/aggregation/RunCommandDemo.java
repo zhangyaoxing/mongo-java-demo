@@ -65,7 +65,7 @@ public class RunCommandDemo extends MongoBase {
 
     public static void main(String[] args) {
         MongoClient client = Utils.getMongoClient();
-        RunCommandDemo agg = new RunCommandDemo(client);
-        agg.runCommand();
+        RunCommandDemo demo = new RunCommandDemo(client);
+        demo.runCommand();
     }
 }

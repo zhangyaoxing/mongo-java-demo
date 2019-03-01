@@ -8,12 +8,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * 工具类
+ */
 public class Utils {
     private static Properties properties;
     static {
         getConfig();
     }
 
+    /**
+     * 从配置文件中加载配置
+     * @return 配置
+     */
     public static Properties getConfig() {
         if (properties == null) {
             properties = new Properties();
@@ -27,6 +34,11 @@ public class Utils {
 
         return properties;
     }
+
+    /**
+     * 根据配置文件中的连接字符串创建MongoClient
+     * @return MongoClient
+     */
     public static MongoClient getMongoClient() {
         // MongoDB连接字符串
         ConnectionString connStr = new ConnectionString(getConfig().getProperty("CONN_STRING"));
