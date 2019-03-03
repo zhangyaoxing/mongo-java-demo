@@ -35,7 +35,7 @@ public class Main {
 
 
 //        // 清理测试集合并生成测试数据10000条
-//        Insert gen = new Insert(client);
+//        InsertDemo gen = new InsertDemo(client);
 //        gen.cleanup();
 //        gen.insertData();
 //        gen.insertDataDocument();

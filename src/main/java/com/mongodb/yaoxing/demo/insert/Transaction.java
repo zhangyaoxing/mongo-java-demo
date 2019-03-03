@@ -1,4 +1,4 @@
-package com.mongodb.yaoxing.demo.domain;
+package com.mongodb.yaoxing.demo.insert;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.client.ClientSession;

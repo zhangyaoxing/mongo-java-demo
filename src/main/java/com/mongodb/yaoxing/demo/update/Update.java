@@ -1,4 +1,4 @@
-package com.mongodb.yaoxing.demo.domain;
+package com.mongodb.yaoxing.demo.update;
 import com.github.javafaker.Faker;
 import com.mongodb.client.*;
 import com.mongodb.client.model.*;

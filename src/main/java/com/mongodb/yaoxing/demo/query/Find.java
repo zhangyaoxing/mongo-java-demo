@@ -1,4 +1,4 @@
-package com.mongodb.yaoxing.demo.domain;
+package com.mongodb.yaoxing.demo.query;
 
 import com.github.javafaker.Faker;
 import com.mongodb.ConnectionString;
