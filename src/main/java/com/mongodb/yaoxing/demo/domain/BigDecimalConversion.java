@@ -11,6 +11,8 @@ import org.bson.*;
 import org.bson.codecs.*;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+
+import static com.mongodb.yaoxing.demo.Utils.getConfig;
 import static org.bson.codecs.configuration.CodecRegistries.fromCodecs;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -28,7 +30,7 @@ public class BigDecimalConversion extends MongoBase {
         System.out.println("====This is a MongoDB demo!====");
 
         // MongoDB连接字符串
-        ConnectionString connStr = new ConnectionString("mongodb://127.0.0.1/demo");
+        ConnectionString connStr = new ConnectionString(getConfig().getProperty("CONN_STRING"));
 
         // 指定使用BigDecimal来解码Map中的BsonType.DECIMAL128
         Map<BsonType, Class<?>> replacements = new HashMap<BsonType, Class<?>>();
