@@ -52,7 +52,7 @@ public class Spark {
         JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
 
         ReadConfig rc = ReadConfig.create(jsc)
-                .withOption("partitioner", "MongoSplitVectorPartitioner")
+//                .withOption("partitioner", "MongoSplitVectorPartitioner")
                 .withOption("partitionerOptions.partitionKey", "age");
         JavaMongoRDD<Document> mgoRdd = MongoSpark.load(jsc, rc)
                 .withPipeline(Arrays.asList(Aggregates.match(eq("favouriteColor", color))));
