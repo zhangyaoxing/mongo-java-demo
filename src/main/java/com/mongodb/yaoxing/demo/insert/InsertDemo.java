@@ -1,9 +1,13 @@
 package com.mongodb.yaoxing.demo.insert;
 import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientSettings;
+import com.mongodb.ReadPreference;
 import com.mongodb.client.*;
 import com.github.javafaker.Faker;
+import com.mongodb.connection.ConnectionPoolSettings;
 import com.mongodb.yaoxing.demo.MongoBase;
+import com.mongodb.yaoxing.demo.Utils;
 import com.mongodb.yaoxing.demo.pojo.Person;
 import com.mongodb.yaoxing.demo.pojo.Phone;
 import org.bson.Document;
@@ -17,6 +21,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 此类用于演示如何插入数据。
@@ -94,22 +99,7 @@ public class InsertDemo extends MongoBase {
     }
 
     public static void main(String[] args) {
-
-        // MongoDB连接字符串
-        ConnectionString connStr = new ConnectionString("mongodb://127.0.0.1:29017/");
-        // 用于转换POJO与BSON的转换器。如果不使用POJO则不需要调用
-        CodecRegistry pojoCodecRegistry = CodecRegistries.fromRegistries(
-                com.mongodb.MongoClient.getDefaultCodecRegistry(),
-                CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build()));
-
-        // 使用连接字符串，POJO转换器生成一个MongoDB配置
-        MongoClientSettings settings = MongoClientSettings.builder()
-                .codecRegistry(pojoCodecRegistry)
-                .applyConnectionString(connStr)
-                .build();
-
-        MongoClient client = MongoClients.create(settings);
-
+        MongoClient client = Utils.getMongoClient();
 
         InsertDemo insert = new InsertDemo(client);
         insert.insertDataDocument();

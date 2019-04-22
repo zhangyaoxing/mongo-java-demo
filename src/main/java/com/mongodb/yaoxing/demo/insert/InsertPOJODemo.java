@@ -1,12 +1,19 @@
 package com.mongodb.yaoxing.demo.insert;
 
 import com.github.javafaker.Faker;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.yaoxing.demo.MongoBase;
+import com.mongodb.yaoxing.demo.Utils;
 import com.mongodb.yaoxing.demo.pojo.Person;
 import com.mongodb.yaoxing.demo.pojo.Phone;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,7 +28,7 @@ public class InsertPOJODemo extends MongoBase {
     /**
      * 批量插入数据。这些数据将为其他演示功能使用。
      */
-    public void insertData() {
+    public void insertDataPOJO() {
         MongoDatabase db = this.getDefaultDatabase();
         MongoCollection<Person> coll = db.getCollection("Person", Person.class);
         Faker faker = new Faker();
@@ -62,5 +69,12 @@ public class InsertPOJODemo extends MongoBase {
             coll.insertMany(data);
         }
         System.out.println(String.format("====%d documents generated!", InsertDemo.TOTAL_COUNT));
+    }
+
+    public static void main(String[] args) {
+        MongoClient client = Utils.getMongoClientWithCodec();
+
+        InsertPOJODemo insert = new InsertPOJODemo(client);
+        insert.insertDataPOJO();
     }
 }
