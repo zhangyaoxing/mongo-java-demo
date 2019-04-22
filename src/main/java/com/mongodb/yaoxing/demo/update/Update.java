@@ -7,7 +7,9 @@ import static com.mongodb.client.model.Updates.*;
 
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.yaoxing.demo.MongoBase;
+import com.mongodb.yaoxing.demo.Utils;
 import com.mongodb.yaoxing.demo.pojo.Person;
+import com.mongodb.yaoxing.demo.query.Find;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -111,5 +113,14 @@ public class Update extends MongoBase {
         }
 
         coll.bulkWrite(ops, new BulkWriteOptions().ordered(false));
+    }
+    public static void main(String[] args) {
+        // MongoDB连接字符串
+        MongoClient client = Utils.getMongoClient();
+
+        Update update = new Update(client);
+        update.updateSingleElm();
+        update.replaceOne();
+        update.bulkUpdate();
     }
 }
