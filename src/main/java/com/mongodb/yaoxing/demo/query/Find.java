@@ -5,6 +5,7 @@ import com.mongodb.ConnectionString;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Projections;
 import com.mongodb.yaoxing.demo.MongoBase;
+import com.mongodb.yaoxing.demo.Utils;
 import org.bson.Document;
 
 import java.util.List;
@@ -70,8 +71,7 @@ public class Find extends MongoBase {
         System.out.println("====This is a MongoDB demo!====");
 
         // MongoDB连接字符串
-        ConnectionString connStr = new ConnectionString("mongodb://127.0.0.1:29018/demo?slaveOk=true");
-        MongoClient client = MongoClients.create(connStr);
+        MongoClient client = Utils.getMongoClient();
 
         Find find = new Find(client);
         for (int i = 0; i < 10000; i++) {
