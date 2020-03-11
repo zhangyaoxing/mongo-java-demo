@@ -9,7 +9,6 @@ import com.mongodb.client.result.UpdateResult;
 import com.mongodb.yaoxing.demo.MongoBase;
 import com.mongodb.yaoxing.demo.Utils;
 import com.mongodb.yaoxing.demo.pojo.Person;
-import com.mongodb.yaoxing.demo.query.Find;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -19,8 +18,8 @@ import java.util.List;
 /**
  * 此类用于演示更新类功能。
  */
-public class Update extends MongoBase {
-    public Update(MongoClient client) {
+public class UpdateDemo extends MongoBase {
+    public UpdateDemo(MongoClient client) {
         super(client);
     }
 
@@ -118,9 +117,9 @@ public class Update extends MongoBase {
         // MongoDB连接字符串
         MongoClient client = Utils.getMongoClient();
 
-        Update update = new Update(client);
-        update.updateSingleElm();
-        update.replaceOne();
-        update.bulkUpdate();
+        UpdateDemo updateDemo = new UpdateDemo(client);
+        updateDemo.updateSingleElm();
+        updateDemo.replaceOne();
+        updateDemo.bulkUpdate();
     }
 }

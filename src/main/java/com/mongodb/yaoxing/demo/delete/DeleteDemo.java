@@ -26,7 +26,7 @@ import static com.mongodb.client.model.Updates.inc;
 import static com.mongodb.client.model.Updates.set;
 
 /**
- * 此类用于演示更新类功能。
+ * 此类用于演示删除类功能。
  */
 public class DeleteDemo extends MongoBase {
     public DeleteDemo(MongoClient client) {
@@ -34,7 +34,7 @@ public class DeleteDemo extends MongoBase {
     }
 
     /**
-     * 更新全部匹配的数组元素
+     * 删除符合条件的所有记录
      */
     public void deleteMany() {
         Faker faker = new Faker();

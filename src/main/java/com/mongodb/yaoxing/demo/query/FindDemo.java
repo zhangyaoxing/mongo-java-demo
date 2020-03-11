@@ -1,7 +1,6 @@
 package com.mongodb.yaoxing.demo.query;
 
 import com.github.javafaker.Faker;
-import com.mongodb.ConnectionString;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Projections;
 import com.mongodb.yaoxing.demo.MongoBase;
@@ -15,8 +14,9 @@ import static com.mongodb.client.model.Filters.*;
 /**
  * 此类用于演示查询相关操作。
  */
-public class Find extends MongoBase {
-    public Find(MongoClient client) {
+public class FindDemo extends MongoBase {
+    public static final int FIND_TIMES = 10;
+    public FindDemo(MongoClient client) {
         super(client);
     }
 
@@ -73,8 +73,8 @@ public class Find extends MongoBase {
         // MongoDB连接字符串
         MongoClient client = Utils.getMongoClient();
 
-        Find find = new Find(client);
-        for (int i = 0; i < 10000; i++) {
+        FindDemo find = new FindDemo(client);
+        for (int i = 0; i < FIND_TIMES; i++) {
             find.findSingleArrayElm();
         }
     }
