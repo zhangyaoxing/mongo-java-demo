@@ -85,6 +85,7 @@ public class InsertDemo extends MongoBase {
             person.put("age", age);
             person.put("amount", new BigDecimal(faker.number().numberBetween(10, 100)));
             person.put("phones", phones);
+            person.put("created", new Date());
             data.add(person);
             // 使用批量方式插入以提高效率
             if (i % BATCH_SIZE == 0) {
