@@ -29,10 +29,10 @@ public class BigDecimalConversion extends MongoBase {
     public static void main(String[] args) {
         System.out.println("====This is a MongoDB demo!====");
 
-        // MongoDB连接字符串
+        // MongoDB connection string
         ConnectionString connStr = new ConnectionString(getConfig().getProperty("CONN_STRING"));
 
-        // 指定使用BigDecimal来解码Map中的BsonType.DECIMAL128
+        // Map BsonType.DECIMAL128 to BigDecimal in Java.
         Map<BsonType, Class<?>> replacements = new HashMap<BsonType, Class<?>>();
         replacements.put(BsonType.DECIMAL128, BigDecimal.class);
         BsonTypeClassMap bsonTypeClassMap = new BsonTypeClassMap(replacements);
@@ -61,7 +61,6 @@ public class BigDecimalConversion extends MongoBase {
         Product product = new Product("0001", "MongoDB T-shirt", map);
         collection.insertOne(product);
         System.out.println("Product written to collection: " + product.toString());
-        // 从集合中读取并映射为POJO
         Product newProduct = collection.find()
                 .sort(new Document("_id", -1))
                 .limit(1)
